@@ -1,0 +1,14 @@
+#info {
+    display: inline-block;
+    width: 230px;
+    height: 450px;
+    border: 10px solid red;
+    margin-left: 30px;
+    vertical-align: top;
+    padding-left: 20px;
+}
+
+#pics {
+    display: inline-block;
+    width: 1100px;
+}

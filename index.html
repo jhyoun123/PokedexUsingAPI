@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pokemon</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+    <script type="text/javascript">
+        $(document).ready(function() {
+            for (var i=1; i<=151; i++) {
+                $("#pics").append('<img current="' + false +  '" id="' + i + '"src="http://pokeapi.co/media/img/' + i + '.png">');
+            }
+            $('img').click(function() {
+                if ($('#info').children().length > 0) {
+                    $('#info').empty();
+                }
+                $(this).attr('current', "true");
+                $('#info').append('<img id="' + $(this).attr('id') + '"src="http://pokeapi.co/media/img/' + $(this).attr('id') + '.png">');
+                $.get("http://pokeapi.co/api/v1/pokemon/" + $(this).attr('id') + "/", function(res) {
+                    var html_types = "<h4>Types</h4><ul>"
+                    for (var i=0; i<res.types.length; i++) {
+                        html_types += "<li>" + res.types[i].name + "</li>"
+                    }
+                    html_types += "</ul>"
+                    $('#info').append("<h3>" + res.name + "</h3>");
+                    $('#info').append(html_types);
+                    var html_height = "<h4>Height</h4><p>" + res.height + "</p>";
+                    var html_weight = "<h4>Weight</h4><p>" + res.weight + "</p>";
+                    $('#info').append(html_height);
+                    $('#info').append(html_weight);
+                }, "json");
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <div id="pics">
+    </div>
+    <div id="info">
+    </div>
+</body>
+</html>
